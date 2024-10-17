@@ -6,14 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReportManager {
-    private static TransactionManager transactionManager;
+    private TransactionManager transactionManager; // Instance variable, not static
 
+    // Constructor to inject the TransactionManager
     public ReportManager(TransactionManager transactionManager) {
-        ReportManager.transactionManager = transactionManager; // Dependency injection of TransactionManager
+        this.transactionManager = transactionManager; // Use instance variable
     }
 
     // Generate report for transactions in the current month
-    public static List<Transaction> generateMonthToDateReport() {
+    public List<Transaction> generateMonthToDateReport() { // Remove static
         List<Transaction> monthToDateTransactions = new ArrayList<>();
         LocalDate today = LocalDate.now();
         String currentMonth = today.format(DateTimeFormatter.ofPattern("yyyy-MM"));
@@ -27,7 +28,7 @@ public class ReportManager {
     }
 
     // Generate report for transactions in the previous month
-    public static List<Transaction> generatePreviousMonthReport() {
+    public List<Transaction> generatePreviousMonthReport() { // Remove static
         List<Transaction> previousMonthTransactions = new ArrayList<>();
         LocalDate today = LocalDate.now().minusMonths(1);
         String previousMonth = today.format(DateTimeFormatter.ofPattern("yyyy-MM"));
@@ -41,7 +42,7 @@ public class ReportManager {
     }
 
     // Generate report for transactions in the current year
-    public static List<Transaction> generateYearToDateReport() {
+    public List<Transaction> generateYearToDateReport() { // Remove static
         List<Transaction> yearToDateTransactions = new ArrayList<>();
         LocalDate today = LocalDate.now();
         String currentYear = today.format(DateTimeFormatter.ofPattern("yyyy"));
@@ -55,7 +56,7 @@ public class ReportManager {
     }
 
     // Search transactions by vendor name
-    public static List<Transaction> searchByVendor(String vendor) {
+    public List<Transaction> searchByVendor(String vendor) { // Remove static
         List<Transaction> vendorTransactions = new ArrayList<>();
         for (Transaction transaction : transactionManager.getAllTransactions()) {
             if (transaction.getVendor().equalsIgnoreCase(vendor)) {

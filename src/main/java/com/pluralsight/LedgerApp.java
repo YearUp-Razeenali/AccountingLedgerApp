@@ -6,7 +6,8 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class LedgerApp {
-    private static TransactionManager transactionManager = new TransactionManager();;
+    private static TransactionManager transactionManager = new TransactionManager();
+    private static ReportManager reportManager = new ReportManager(transactionManager);;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -28,7 +29,7 @@ public class LedgerApp {
                 } else if (choice == 3) {
                     viewLedger(scanner);  // Moved View Reports to Ledger section
                 } else if (choice == 4) {
-                    System.out.println("Exiting...");
+                    System.out.print("Existing"); animation();
                     return;
                 } else {
                     System.out.println("Invalid command. Please try again.");
@@ -48,7 +49,7 @@ public class LedgerApp {
      * Then adds the transcation
      */
 
-    private static void addDeposit(Scanner scanner) {
+    private static void addDeposit(Scanner scanner) throws InterruptedException {
 
         String date = Console.PromptForString("Enter date (YYYY-MM-DD): ");
         String time = Console.PromptForString("Enter time (HH:MM:SS): ");
@@ -57,6 +58,7 @@ public class LedgerApp {
         float amount = Console.PromptForFloat("Enter amount: ");
 
         transactionManager.addTransaction(new Transaction(date, time, description, vendor, amount));
+        Loadinganimation();
         System.out.println("Deposit added successfully.");
     }
 
@@ -68,14 +70,15 @@ public class LedgerApp {
      *          amount
      * Then adds the transcation but amount would be negative
      */
-    private static void makePayment(Scanner scanner) {
+    private static void makePayment(Scanner scanner) throws InterruptedException {
         String date = Console.PromptForString("Enter date (YYYY-MM-DD): ");
         String time = Console.PromptForString("Enter time (HH:MM:SS): ");
         String description = Console.PromptForString("Enter description: ");
         String vendor = Console.PromptForString("Enter vendor: ");
         float amount = Console.PromptForFloat("Enter amount: ");;
 
-        transactionManager.addTransaction(new Transaction(date, time, description, vendor, -amount)); // Negative for payment
+        transactionManager.addTransaction(new Transaction(date, time, description, vendor, -amount));
+        Loadinganimation();
         System.out.println("Payment recorded successfully.");
     }
 
@@ -96,7 +99,7 @@ public class LedgerApp {
             System.out.println(" R) Reports");  // Added Reports option here
             System.out.println(" X) Back to Main Menu");
             System.out.print("Enter option: ");
-            char option = scanner.next().toUpperCase().charAt(0);
+            String option = Console.PromptForString().toUpperCase();
 
             List<Transaction> transactions = transactionManager.getAllTransactions();
 
@@ -104,17 +107,17 @@ public class LedgerApp {
             Collections.sort(transactions, Comparator.comparing(Transaction::getDate).thenComparing(Transaction::getTime).reversed());
 
             try {
-                if (option == 'A') {
+                if (option.equals("A")) {
                     displayTransactions(transactions);
-                } else if (option == 'D') {
+                } else if (option.equals("D")) {
                     List<Transaction> deposits = transactionManager.getDeposits();
                     displayTransactions(deposits);
-                } else if (option == 'P') {
+                } else if (option.equals("P")) {
                     List<Transaction> payments = transactionManager.getPayments();
                     displayTransactions(payments);
-                } else if (option == 'R') {
+                } else if (option.equals("R")) {
                     viewReports(scanner);  // Call viewReports from the ledger screen
-                } else if (option == 'X') {
+                } else if (option.equals("X")) {
                     return;  // Go back to the main menu
                 } else {
                     Thread.sleep(1000);
@@ -144,18 +147,18 @@ public class LedgerApp {
         System.out.println("2- Previous Month");
         System.out.println("3- Year To Date");
         System.out.println("4- Search by Vendor");
-        int choice = scanner.nextInt();
+        int choice = Console.PromptForInt();
 
         if (choice == 1) {
-            displayReport(ReportManager.generateMonthToDateReport());
+            displayReport(reportManager.generateMonthToDateReport());
         } else if (choice == 2) {
-            displayReport(ReportManager.generatePreviousMonthReport());
+            displayReport(reportManager.generatePreviousMonthReport());
         } else if (choice == 3) {
-            displayReport(ReportManager.generateYearToDateReport());
+            displayReport(reportManager.generateYearToDateReport());
         } else if (choice == 4) {
             System.out.print("Enter vendor name: ");
             String vendor = scanner.next();
-            displayReport(ReportManager.searchByVendor(vendor));
+            displayReport(reportManager.searchByVendor(vendor));
         } else {
             System.out.println("Invalid choice.");
         }
@@ -175,5 +178,26 @@ public class LedgerApp {
                 System.out.println(t);
             }
         }
+    }
+
+    private static void animation() throws InterruptedException {
+        Thread.sleep(500);
+        System.out.print(".");
+        Thread.sleep(500);
+        System.out.print(".");
+        Thread.sleep(500);
+        System.out.print(".\n");
+        Thread.sleep(500);
+    }
+
+    private static void Loadinganimation() throws InterruptedException {
+        System.out.print("Loading");
+        Thread.sleep(500);
+        System.out.print(".");
+        Thread.sleep(500);
+        System.out.print(".");
+        Thread.sleep(500);
+        System.out.print(".\n");
+        Thread.sleep(500);
     }
 }

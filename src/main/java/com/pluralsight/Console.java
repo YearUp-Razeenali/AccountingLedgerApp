@@ -42,6 +42,11 @@ public class Console {
         return userinput;
     }
 
+    public static int PromptForInt(){
+        String value = scanner.nextLine();
+        return Integer.parseInt(value);
+    }
+
     public static double PromptForDouble(String prompt){
         System.out.print(prompt);
         String userInputs = scanner.nextLine();
