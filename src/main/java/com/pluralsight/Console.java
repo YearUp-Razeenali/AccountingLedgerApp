@@ -74,5 +74,35 @@ public class Console {
         return  userinput;
     }
 
+    public static void animation() throws InterruptedException {
+        for (int i = 0; i < 3; i++){
+            System.out.print(".");
+            Thread.sleep(500);
+        }
+        System.out.println();
+    }
+
+    public static void Loadinganimation() throws InterruptedException {
+        System.out.print("Loading");
+        for (int i = 0; i < 3; i++){
+            System.out.print(".");
+            Thread.sleep(1000);
+        }
+        System.out.print(".\n");
+        printLine("-",101);
+    }
+
+    public static void printLine(String symbol, int i) {
+        for (int j = 0 ; j < i; j++ ){
+            System.out.print(symbol);
+        }
+        System.out.println();
+    }
+    public static void printLine(String symbol) {
+        for (int j = 0 ; j < 101; j++ ){
+            System.out.print(symbol);
+        }
+        System.out.println();
+    }
 
 }

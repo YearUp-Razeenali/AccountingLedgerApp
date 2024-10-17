@@ -11,15 +11,20 @@ public class LedgerApp {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+        Console.printLine("*",74);
+        System.out.println("*                    Welcome to Ledgers Application!                     *");
+        Console.printLine("*",74);
+
         while (true) {
             try {
                 System.out.println("What do you want to do?");
-                System.out.println(" 1- Add Deposit");
-                System.out.println(" 2- Make Payment (Debit)");
-                System.out.println(" 3- View Ledger");
-                System.out.println(" 4- Exit");
+                System.out.println("    1- Add Deposit");
+                System.out.println("    2- Make Payment (Debit)");
+                System.out.println("    3- View Ledger");
+                System.out.println("    4- Exit");
                 System.out.print("Enter command: ");
                 int choice = Console.PromptForByte();
+                Console.printLine("-");
 
                 if (choice == 1) {
                     addDeposit(scanner);
@@ -28,10 +33,12 @@ public class LedgerApp {
                 } else if (choice == 3) {
                     viewLedger(scanner);  // Moved View Reports to Ledger section
                 } else if (choice == 4) {
-                    System.out.print("Exiting"); animation();
+                    System.out.print("Exiting"); Console.animation();
+                    Console.printLine("-");
                     return;
                 } else {
                     System.out.println("Invalid command. Please try again.");
+                    Console.printLine("-");
                 }
             }catch (Exception e){
                 System.out.println("Invalid Command");
@@ -52,13 +59,13 @@ public class LedgerApp {
         while (true) {
             try {
                 System.out.println("Choose transaction type:");
-                System.out.println(" 1- Recent Transaction");
-                System.out.println(" 2- Old Transaction");
-                System.out.println(" 3- Exit");
+                System.out.println("    1- Recent Transaction");
+                System.out.println("    2- Old Transaction");
+                System.out.println("    3- Exit");
                 System.out.print("Enter your choice: ");
 
-                int choice = scanner.nextInt();
-                scanner.nextLine(); // Consume the newline character
+                int choice = Console.PromptForInt();
+                Console.printLine("-");
 
                 if (choice == 1) {
                     // Use current date and time
@@ -78,11 +85,13 @@ public class LedgerApp {
                     handleTransactionInput(date, time, scanner, false); // false for deposit
 
                 } else if (choice == 3) {
-                    System.out.println("Exiting to the main menu.");
+                    System.out.print("Exiting to the main menu.");Console.animation();
+                    Console.printLine("-");
                     return;
 
                 } else {
                     System.out.println("Invalid choice. Please try again.");
+                    Console.printLine("-");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input type. Please enter a number.");
@@ -103,13 +112,13 @@ public class LedgerApp {
         while (true) {
             try {
                 System.out.println("Choose transaction type:");
-                System.out.println(" 1- Recent Payment");
-                System.out.println(" 2- Old Payment");
-                System.out.println(" 3- Exit");
+                System.out.println("    1- Recent Payment");
+                System.out.println("    2- Old Payment");
+                System.out.println("    3- Exit");
                 System.out.print("Enter your choice: ");
 
-                int choice = scanner.nextInt();
-                scanner.nextLine(); // Consume the newline character
+                int choice = Console.PromptForInt();
+                Console.printLine("-");
 
                 if (choice == 1) {
                     // Use current date and time
@@ -129,11 +138,13 @@ public class LedgerApp {
                     handleTransactionInput(date, time, scanner, true); // true for payment
 
                 } else if (choice == 3) {
-                    System.out.println("Exiting to the main menu.");
+                    System.out.print("Exiting to the main menu.");Console.animation();
+                    Console.printLine("-");
                     return;
 
                 } else {
                     System.out.println("Invalid choice. Please try again.");
+                    Console.printLine("-");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input type. Please enter a number.");
@@ -151,14 +162,14 @@ public class LedgerApp {
             // Create transaction
             if (isPayment) {
                 transactionManager.addTransaction(new Transaction(date, time, description, vendor, -amount)); // Negative for payment
-                Loadinganimation();
+                Console.Loadinganimation();
                 System.out.println("Payment recorded successfully.");
-                printLine();
+                Console.printLine("-");
             } else {
                 transactionManager.addTransaction(new Transaction(date, time, description, vendor, amount)); // Positive for deposit
-                Loadinganimation();
+                Console.Loadinganimation();
                 System.out.println("Deposit added successfully.");
-                printLine();
+                Console.printLine("-");
             }
         } catch (InputMismatchException e) {
             System.out.println("Invalid input type. Please enter a valid number for amount.");
@@ -166,12 +177,7 @@ public class LedgerApp {
         }
     }
 
-    public static void printLine() {
-        for (int i = 0; i <100;i++){
-            System.out.print("-");
-        }
-        System.out.println();
-    }
+
 
     /**
      * Handles viewing the ledger (with sub-options for All, Deposits, Payments, and Reports)
@@ -184,13 +190,14 @@ public class LedgerApp {
     private static void viewLedger(Scanner scanner) throws InterruptedException {
         while (true) {
             System.out.println("Ledger - What would you like to view?");
-            System.out.println(" A) All transactions");
-            System.out.println(" D) Deposits transactions");
-            System.out.println(" P) Payments transactions");
-            System.out.println(" R) Reports");
-            System.out.println(" X) Back to Main Menu");
+            System.out.println("    A) All transactions");
+            System.out.println("    D) Deposits transactions");
+            System.out.println("    P) Payments transactions");
+            System.out.println("    R) Reports");
+            System.out.println("    X) Back to Main Menu");
             System.out.print("Enter option: ");
             String option = Console.PromptForString().toUpperCase();
+            Console.printLine("-");
 
             List<Transaction> transactions = transactionManager.getAllTransactions();
 
@@ -199,20 +206,30 @@ public class LedgerApp {
 
             try {
                 if (option.equals("A")) {
+                    Console.Loadinganimation();
                     displayTransactions(transactions);
+                    Console.printLine("-");
                 } else if (option.equals("D")) {
                     List<Transaction> deposits = transactionManager.getDeposits();
+                    Console.Loadinganimation();
                     displayTransactions(deposits);
+                    Console.printLine("-");
                 } else if (option.equals("P")) {
                     List<Transaction> payments = transactionManager.getPayments();
+                    Console.Loadinganimation();
                     displayTransactions(payments);
+                    Console.printLine("-");
                 } else if (option.equals("R")) {
+                    Console.Loadinganimation();
                     viewReports(scanner);
                 } else if (option.equals("X")) {
+                    System.out.print("Exiting to the main menu.");Console.animation();
+                    Console.printLine("-");
                     return;
                 } else {
                     Thread.sleep(1000);
                     System.out.println("Invalid option. Please try again.");
+                    Console.printLine("-");
                 }
             }catch (Exception e){
                 System.out.println("Invalid option. Please try again.");
@@ -220,38 +237,55 @@ public class LedgerApp {
         }
     }
 
-    // Handles displaying a list of transactions
+    // Handles displaying a list of transactions with headings
     private static void displayTransactions(List<Transaction> transactions) {
         if (transactions.isEmpty()) {
             System.out.println("No transactions found.");
         } else {
+            // Print table headings
+            System.out.printf("%-15s %-10s %-35s %-25s %-10s%n", "Date", "Time", "Description", "Vendor", "Amount");
+            Console.printLine("-");
+
+            // Print each transaction
             for (Transaction t : transactions) {
-                System.out.println(t);
+                System.out.printf("%-15s %-10s %-35s %-25s %10.2f%n",
+                        t.getDate(), t.getTime(), t.getDescription(), t.getVendor(), t.getAmount());
             }
         }
     }
 
     // Handles viewing reports
-    private static void viewReports(Scanner scanner) {
+    private static void viewReports(Scanner scanner) throws InterruptedException {
         System.out.println("Select report:");
-        System.out.println("1- Month To Date");
-        System.out.println("2- Previous Month");
-        System.out.println("3- Year To Date");
-        System.out.println("4- Search by Vendor");
+        System.out.println("    1- Month To Date");
+        System.out.println("    2- Previous Month");
+        System.out.println("    3- Year To Date");
+        System.out.println("    4- Search by Vendor");
+        System.out.print("Enter option: ");
         int choice = Console.PromptForInt();
+        Console.printLine("-");
 
         if (choice == 1) {
+            Console.Loadinganimation();
             displayReport(reportManager.generateMonthToDateReport());
+            Console.printLine("-");
         } else if (choice == 2) {
+            Console.Loadinganimation();
             displayReport(reportManager.generatePreviousMonthReport());
+            Console.printLine("-");
         } else if (choice == 3) {
+            Console.Loadinganimation();
             displayReport(reportManager.generateYearToDateReport());
+            Console.printLine("-");
         } else if (choice == 4) {
-            System.out.print("Enter vendor name: ");
-            String vendor = scanner.next();
+            String vendor = Console.PromptForString("Enter vendor name: ");
+            Console.printLine("-");
+            Console.Loadinganimation();
             displayReport(reportManager.searchByVendor(vendor));
+            Console.printLine("-");
         } else {
             System.out.println("Invalid choice.");
+            Console.printLine("-");
         }
     }
 
@@ -261,30 +295,21 @@ public class LedgerApp {
      * else
      *      prints the report
      */
+// Handles displaying a report of transactions with headings
     private static void displayReport(List<Transaction> transactions) {
         if (transactions.isEmpty()) {
             System.out.println("No transactions found.");
         } else {
+            // Print table headings with more space for "Description"
+            System.out.printf("%-15s %-10s %-35s %-25s %-10s%n", "Date", "Time", "Description", "Vendor", "Amount");
+            Console.printLine("-");
+
+            // Print each transaction
             for (Transaction t : transactions) {
-                System.out.println(t);
+                System.out.printf("%-15s %-10s %-35s %-25s %10.2f%n",
+                        t.getDate(), t.getTime(), t.getDescription(), t.getVendor(), t.getAmount());
             }
         }
     }
-
-    private static void animation() throws InterruptedException {
-        for (int i = 0; i < 3; i++){
-            System.out.print(".");
-            Thread.sleep(500);
-        }
-    }
-
-    private static void Loadinganimation() throws InterruptedException {
-        System.out.print("Loading");
-        for (int i = 0; i < 2; i++){
-            System.out.print(". ");
-            Thread.sleep(1000);
-        }
-        System.out.print(".\n");
-        Thread.sleep(500);
-    }
+    
 }
