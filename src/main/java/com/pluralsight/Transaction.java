@@ -42,6 +42,16 @@ public class Transaction {
 
     public static Transaction fromString(String csvLine) {
         String[] tokens = csvLine.split("\\|");
-        return new Transaction(tokens[0], tokens[1], tokens[2], tokens[3], Float.parseFloat(tokens[4]));
+        if (tokens.length < 5) {
+            throw new IllegalArgumentException("Invalid transaction data: " + csvLine);
+        }
+
+        String date = tokens[0];
+        String time = tokens[1];
+        String description = tokens[2];
+        String vendor = tokens[3];
+        float amount = Float.parseFloat(tokens[4]);
+
+        return new Transaction(date, time, description, vendor, amount);
     }
 }
