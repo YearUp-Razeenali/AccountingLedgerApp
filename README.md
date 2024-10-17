@@ -66,3 +66,27 @@ private static void handleTransactionInput(String date, String time, Scanner sca
         scanner.nextLine();
     }
 }
+```
+## How to Run
+
+1. Clone the repository.
+2. Ensure you have Java installed on your system.
+3. Navigate to the project directory in the terminal.
+4. Compile the Java files:
+
+   ```bash
+   javac com/pluralsight/*.java
+
+   ```
+5. Run the main application:
+   ```bash
+   java com.pluralsight.LedgerApp
+
+   ```
+
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+
