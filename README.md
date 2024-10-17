@@ -27,13 +27,17 @@ This utility class simplifies input handling. It provides various methods for pr
 
 ## Screenshots
 Here is a screenshot for the Home Screen Menu:
-![App Screenshot 1](link-to-screenshot1)
+
+![App Screenshot](https://github.com/YearUp-Razeenali/AccountingLedgerApp/blob/main/images/homescreen.PNG)
+
 
 Here is a screenshot for the Ledger Screen Menu:
-![App Screenshot 1](link-to-screenshot1)
+
+![App Screenshot 1](https://github.com/YearUp-Razeenali/AccountingLedgerApp/blob/main/images/ledger.PNG)
 
 Here is a screenshot for the Reports Screen Menu:
-![App Screenshot 1](link-to-screenshot1)
+
+![App Screenshot 1](https://github.com/YearUp-Razeenali/AccountingLedgerApp/blob/main/images/homescreen.PNG)
 
 ## Interesting Code
 One interesting piece of code is the `handleTransactionInput` method in the `LedgerApp` class, which manages user input for both deposits and payments.
