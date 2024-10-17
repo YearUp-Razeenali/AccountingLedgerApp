@@ -177,8 +177,6 @@ public class LedgerApp {
         }
     }
 
-
-
     /**
      * Handles viewing the ledger (with sub-options for All, Deposits, Payments, and Reports)
      * A - All
