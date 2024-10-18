@@ -6,7 +6,7 @@ import java.util.*;
 
 public class LedgerApp {
     private static TransactionManager transactionManager = new TransactionManager();
-    private static ReportManager reportManager = new ReportManager(transactionManager);;
+    private static ReportManager reportManager = new ReportManager(transactionManager);
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
