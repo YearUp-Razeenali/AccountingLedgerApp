@@ -37,7 +37,7 @@ Here is a screenshot for the Ledger Screen Menu:
 
 Here is a screenshot for the Reports Screen Menu:
 
-![App Screenshot 1](https://github.com/YearUp-Razeenali/AccountingLedgerApp/blob/main/images/homescreen.PNG)
+![App Screenshot 1](https://github.com/YearUp-Razeenali/AccountingLedgerApp/blob/main/images/Reports.PNG)
 
 ## Interesting Code
 One interesting piece of code is the `handleTransactionInput` method in the `LedgerApp` class, which manages user input for both deposits and payments.
