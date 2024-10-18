@@ -41,17 +41,22 @@ public class Transaction {
     }
 
     public static Transaction fromString(String csvLine) {
-        String[] tokens = csvLine.split("\\|");
-        if (tokens.length < 5) {
-            throw new IllegalArgumentException("Invalid transaction data: " + csvLine);
+        try {
+            String[] tokens = csvLine.split("\\|");
+            if (tokens.length < 5) {
+                throw new IllegalArgumentException("Invalid transaction data: " + csvLine);
+            }
+
+            String date = tokens[0];
+            String time = tokens[1];
+            String description = tokens[2];
+            String vendor = tokens[3];
+            float amount = Float.parseFloat(tokens[4]);
+
+            return new Transaction(date, time, description, vendor, amount);
+        } catch (Exception e) {
+            System.err.println("Error parsing transaction: " + csvLine + " - " + e.getMessage());
+            return null; // Or handle the error accordingly
         }
-
-        String date = tokens[0];
-        String time = tokens[1];
-        String description = tokens[2];
-        String vendor = tokens[3];
-        float amount = Float.parseFloat(tokens[4]);
-
-        return new Transaction(date, time, description, vendor, amount);
     }
 }
